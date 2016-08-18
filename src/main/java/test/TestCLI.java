@@ -1,6 +1,7 @@
 package test;
 
 import com.company.CLI;
+import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.junit.After;
@@ -19,11 +20,14 @@ public class TestCLI {
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+    private Options options;
 
     @Before
     public void setUpStreamsAndOptions() {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
+        this.options = new Options();
+        options.addOption("t", true, "display input from user");
     }
 
     @After
@@ -35,7 +39,8 @@ public class TestCLI {
     @Test
     public void TestGivenHelloWorldReturnsHelloWorld() throws ParseException {
         String[] args = {"-tHello, World!"};
-        CLI.main(args);
+        CLI cli = new CLI(options);
+        cli.main(args);
         assertThat(outContent.toString(), is("Hello, World!"));
     }
 }
