@@ -16,7 +16,7 @@ public class CLI {
 
     private static CommandLine getCommandLine(String[] args) throws ParseException {
         Options options = new Options();
-        options.addOption("t", true, "display current time");
+        options.addOption("t", true, "display input from user");
         CommandLineParser parser = new DefaultParser();
         return parser.parse( options, args);
     }
